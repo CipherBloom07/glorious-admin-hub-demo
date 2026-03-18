@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Glorious Admin Hub (Demo)</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f0f2f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .auth-container {
+      width: 100%;
+      max-width: 420px;
+    }
+    .auth-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .logo {
+      width: 80px;
+      margin-bottom: 20px;
+    }
+  </style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <img src="assets/images/logo.png" alt="Glorious Logo" class="logo">
+      <h3>Welcome Back</h3>
+      <p class="text-muted">Sign in to continue</p>
+      <div id="errorBox" class="alert alert-danger d-none" role="alert"></div>
+      <form id="loginForm">
+        <div class="mb-3 text-start">
+          <label>Email</label>
+          <input type="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3 text-start">
+          <label>Password</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="mb-3 text-start">
+          <label>Role</label>
+          <select name="role" class="form-select">
+            <option value="staff">Staff</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+      <p class="mt-3"><a href="index.html">Go to Dashboard Demo</a></p>
+    </div>
+  </div>
+  <script>
+    const form = document.getElementById('loginForm');
+    const errorBox = document.getElementById('errorBox');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const role = form.role.value;
+      if(!email || !password || !role){
+        errorBox.textContent = 'Please fill in all fields.';
+        errorBox.classList.remove('d-none');
+        return;
+      }
+      errorBox.classList.add('d-none');
+      const username = email.includes('@') ? email.split('@')[0] : email;
+      localStorage.setItem('gah_auth', '1');
+      localStorage.setItem('gah_user', JSON.stringify({ email, username, role }));
+      window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>
