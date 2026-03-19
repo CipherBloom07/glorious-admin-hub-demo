@@ -252,7 +252,7 @@
         badge.textContent = role ? (name + ' (' + role + ')') : name;
         logoutNav.classList.remove('d-none');
       } else {
-        loginNav.classList.remove('d-none');
+        window.location.href = 'login.html';
       }
       var btn = document.getElementById('logoutBtn');
       if(btn){
